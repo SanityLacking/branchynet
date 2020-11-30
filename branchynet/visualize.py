@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
-import utils
+import branchynet.utils
 
 from chainer import Variable
 import chainer.functions as F

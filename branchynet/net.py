@@ -8,8 +8,8 @@ import chainer.links as L
 from scipy.stats import entropy
 import types
 
-from links.links import *
-from functions import *
+from branchynet.links.links import *
+from branchynet.functions import *
 
 import time
 
@@ -226,9 +226,9 @@ class BranchyNet:
         overall /= np.sum(numexits)
         
         if self.verbose:
-            print "numexits", numexits
-            print "accuracies", accuracies
-            print "overall accuracy", overall
+            print("numexits {}".format(numexits))
+            print("accuracies {}".format(accuracies)) 
+            print("overall accuracy {}".format(overall))
         
         return overall, accuracies, numexits, totaltime
     
@@ -347,7 +347,7 @@ class BranchyNet:
             accuracydata = accuracy.data
         
         if self.verbose:
-            print "accuracies", accuracydata
+            print ("accuracies {}".format(accuracydata))
             
         return accuracydata, totaltime
     
@@ -365,8 +365,8 @@ class BranchyNet:
             accuraciesdata = accuracy.data            
 
         if self.verbose:        
-            print "losses",lossesdata
-            print "accuracies",accuraciesdata
+            print("losses {}".format(lossesdata))
+            print("accuracies {}".format(accuraciesdata))
         
         return lossesdata,accuraciesdata
         
@@ -605,19 +605,19 @@ class BranchyNet:
             accuraciesdata = [accuracy.data for accuracy in accuracies]
         
         if self.verbose:
-            print "numexits",numexits
-            print "losses",lossesdata
-            print "accuracies",accuraciesdata
+            print("numexits {}".format(numexits))
+            print("losses {}".format(lossesdata))
+            print("accuracies {}".format(accuraciesdata))
             
         return lossesdata,accuraciesdata
     
     def print_models(self):
         for model in self.models:
-            print "----", model.starti, model.endi
+            print("----", model.starti, model.endi)
             for link in model:
-                print link
-        print "----", self.main.starti, model.endi
+                print(link)
+        print("----", self.main.starti, model.endi)
         for link in self.main:
-            print link
-        print "----"
+            print(link)
+        print("----")
         

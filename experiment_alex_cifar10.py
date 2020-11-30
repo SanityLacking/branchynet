@@ -13,8 +13,7 @@ from chainer import cuda
 from networks import alex_cifar10
 
 branchyNet = alex_cifar10.get_network()
-if cuda.available:
-    branchyNet.to_gpu()
+branchyNet.to_gpu()
 branchyNet.training()
 
 
@@ -77,8 +76,7 @@ visualize.plot_layers(zip(*branch_acc), xlabel='Epochs', ylabel='Training Accura
 #set network to inference mode
 branchyNet.testing()
 branchyNet.verbose = False
-if cuda.available:
-    branchyNet.to_gpu()
+branchyNet.to_gpu()
 g_baseacc, g_basediff, _, _ = utils.test(branchyNet,x_test,y_test,main=True,batchsize=TEST_BATCHSIZE)
 g_basediff = (g_basediff / float(len(y_test))) * 1000.
 
@@ -96,8 +94,7 @@ thresholds = [0.0001, 0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 0.75, 1., 5., 10.]
 # In[ ]:
 
 #GPU
-if cuda.available:
-    branchyNet.to_gpu()
+branchyNet.to_gpu()
 g_ts, g_accs, g_diffs, g_exits = utils.screen_branchy(branchyNet, x_test, y_test, thresholds,
                                                     batchsize=TEST_BATCHSIZE, verbose=True)
 # g_ts, g_accs, g_diffs, g_exits = utils.screen_leaky(leakyNet, x_test, y_test, thresholds, inc_amt=-0.1,

@@ -3,7 +3,7 @@ import numpy as np
 import time
 from itertools import product
 import chainer.functions as F
-from augment import augmentation
+from branchynet.augment import augmentation
 
 def test_suite_A(branchyNet,x_test,y_test,batchsize=10000,ps=np.linspace(0.1,1.0,10)):
     accs = []
@@ -58,7 +58,7 @@ def test_augment(branchyNet,x_test,y_test=None,batchsize=10000,main=False):
         
         totaltime += branchyNet.runtime
         
-        print "pred.shape",pred.shape
+        print("pred.shape {}".format(pred.shape))
         pred = pred.mean(axis=0)
         acc = int(pred.argmax() == t.data[0])
         sum_accuracy += acc
@@ -309,13 +309,13 @@ def screen_branchy(branchyNet, x_test, y_test, base_ts, batchsize=1, enumerate_t
 def branchy_table_results(network, baseacc, basediff, accs, diffs, exits, ts):
     print_lst = lambda xs: '{' + ', '.join(map(str, xs)) + '}'
 
-    print '{:>15}{:>15}{:>15}{:>15}{:>15}{:>15}'.format('Network', 'Acc.(%)', 'Time(ms)', 'Gain', 'Thrshld.T', 'Exit(%)')
-    print '{:>15}{:>15.2f}{:>15.2f}{:>15}{:>15}{:>15}'.format(network, baseacc*100., basediff, '-', '-', '-')
+    print('{:>15}{:>15}{:>15}{:>15}{:>15}{:>15}'.format('Network', 'Acc.(%)', 'Time(ms)', 'Gain', 'Thrshld.T', 'Exit(%)'))
+    print('{:>15}{:>15.2f}{:>15.2f}{:>15}{:>15}{:>15}'.format(network, baseacc*100., basediff, '-', '-', '-'))
     
     for i, (acc, diff, exit, t) in enumerate(zip(accs, diffs, exits, ts)):
-        print '{:>15}{:>15.2f}{:>15.2f}{:>15.2f}{:>15}{:>15}'.format('B-'+network, acc*100., diff, basediff / diff, 
+        print('{:>15}{:>15.2f}{:>15.2f}{:>15.2f}{:>15}{:>15}'.format('B-'+network, acc*100., diff, basediff / diff, 
                                                                      print_lst(t), 
-                                                                     print_lst(100.*(exit/float(sum(exit)))))
+                                                                     print_lst(100.*(exit/float(sum(exit))))))
             
 def compute_network_times(exits, branch_times):
     total_times = []
